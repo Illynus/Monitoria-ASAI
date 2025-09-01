@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ASAI – Host</title>
+<link rel="stylesheet" href="/css/styles.css"/><script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script></head>
+<body class="bg"><main class="container host">
+<section class="card"><h2>Configurar Sala</h2>
+<label>Seu nome (opcional)<input id="hostNick" placeholder="Professor/Monitor."></label>
+<label>Escolha o jogo<select id="gameType"><option value="processo">Jogo 1 – Processo de Enfermagem (NANDA/NIC/NOC)</option><option value="bioseg">Jogo 2 – Quiz Biosegurança</option></select></label>
+<button id="btnCreate" class="btn primary">Criar sala</button></section>
+<section id="roomSection" class="card hidden"><h2>Sala <span id="roomCode"></span></h2>
+<div class="qr-wrap"><canvas id="qrCanvas"></canvas><div class="small">Use o QR para entrar</div><div class="small"><button id="copyLink" class="btn">Copiar link</button></div></div>
+<div class="players"><h3>Jogadores (<span id="pcount">0</span>)</h3><ul id="plist"></ul></div>
+<div class="actions"><button id="btnStart" class="btn success" disabled>Iniciar jogo</button></div></section>
+<section id="stage" class="card hidden"><div class="row between"><div><strong>Questão <span id="qIdx">0</span>/<span id="qTot">0</span></strong></div><div>Tempo: <span id="timer">--</span></div></div>
+<div id="qArea" class="qarea"></div><div class="actions"><button id="btnReveal" class="btn warn">Revelar resposta</button><button id="btnNext" class="btn" disabled>Próxima</button></div></section>
+<section id="rankCard" class="card hidden"><h3>Ranking (parcial)</h3><ol id="rankList" class="rank-list"></ol></section>
+<section id="rankOverlay" class="overlay"><div class="modal"><h3>Ranking (parcial)</h3><ol id="rankListOverlay" class="rank-list"></ol><div class="actions" style="margin-top:12px;"><button id="btnContinue" class="btn primary">Continuar</button></div></div></section>
+<section id="finalOverlay" class="overlay"><div class="modal"><h3>Ranking final</h3><div id="finalPodium" class="podium"></div><ol id="finalList" class="rank-list" style="margin-top:12px;"></ol><div class="actions" style="margin-top:12px;"><button id="btnCloseFinal" class="btn primary">Fechar</button></div></div></section>
+</main><script src="/js/common.js"></script><script src="/js/host.js"></script></body></html>

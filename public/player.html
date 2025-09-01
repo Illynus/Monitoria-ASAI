@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ASAI – Jogador</title>
+<link rel="stylesheet" href="/css/styles.css"/><script src="/socket.io/socket.io.js"></script></head>
+<body class="bg"><main class="container player">
+<section id="joinForm" class="card"><h2>Entrar como Jogador</h2>
+<label>Código da sala<input id="joinCode" placeholder="ABCDE" maxlength="5"/></label>
+<label>Seu nome<input id="joinNick" placeholder="Seu nome"/></label>
+<input type="hidden" id="joinAvatar" value="stethoscope.svg"/>
+<div><strong>Escolha seu avatar</strong><div id="avatarGrid" class="avatar-grid"></div></div>
+<button id="btnJoin" class="btn primary">Entrar</button><div class="small">Se abriu por QR, o código pode já estar preenchido.</div></section>
+<section id="wait" class="card hidden center"><h2>Aguardando o host…</h2><p>Você verá as perguntas aqui quando começar.</p></section>
+<section id="qCard" class="card hidden"><div class="row between"><div><strong>Questão <span id="pQIdx">0</span>/<span id="pQTot">0</span></strong></div><div>Tempo: <span id="pTimer">--</span></div></div>
+<div id="pQArea" class="qarea"></div><div class="actions"><button id="sendAnswer" class="btn success" disabled>Enviar</button></div></section>
+<section id="final" class="card hidden center"><h2>Fim de jogo!</h2><p id="finalPos"></p></section>
+</main><script src="/js/common.js"></script><script src="/js/player.js"></script>
+<script>const url=new URL(location.href);const r=url.searchParams.get('room');if(r)document.getElementById('joinCode').value=r.toUpperCase();</script>
+</body></html>

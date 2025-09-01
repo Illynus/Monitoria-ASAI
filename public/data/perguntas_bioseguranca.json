@@ -1,0 +1,242 @@
+[
+  {
+    "type": "bio_abcd",
+    "question": "Na enfermaria de isolamento para paciente com doença infectocontagiosa, a NR‑32 exige que:",
+    "choices": [
+      "Haja apenas dispensador de álcool gel na porta de entrada.",
+      "O lavatório para higiene das mãos fique no corredor, fora do quarto.",
+      "O quarto contenha lavatório em seu interior para higiene das mãos.",
+      "Sejam fornecidas luvas em quantidade limitada, priorizando economia.",
+      "Se utilize toalha de pano, desde que trocada ao final do plantão."
+    ],
+    "correct": 2
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Em unidades com possibilidade de exposição a agentes biológicos, o lavatório exclusivo para higiene das mãos deve possuir, obrigatoriamente:",
+    "choices": [
+      "Sabonete em barra e toalha de pano.",
+      "Torneira com acionamento a pedal e sabonete em barra.",
+      "Álcool a 70% como item único de limpeza.",
+      "Água corrente, sabonete líquido, toalha descartável e lixeira com abertura sem contato manual.",
+      "Apenas água corrente e toalha de pano."
+    ],
+    "correct": 3
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Após retirar as luvas de procedimento na beira do leito, o profissional deve:",
+    "choices": [
+      "Retornar às atividades, pois as luvas substituem a lavagem das mãos.",
+      "Higienizar as mãos, pois o uso de luvas não substitui a lavagem.",
+      "Higienizar as mãos somente se houver sujidade visível.",
+      "Passar apenas álcool gel no dorso das mãos.",
+      "Trocar de luvas e continuar o cuidado sem higienização."
+    ],
+    "correct": 1
+  },
+  {
+    "type": "bio_abcd",
+    "question": "No posto de enfermagem de uma unidade de internação, é permitido:",
+    "choices": [
+      "Usar adornos (anéis, pulseiras) durante o preparo de medicações.",
+      "Consumir alimentos e bebidas no posto de trabalho.",
+      "Guardar alimentos no refrigerador de medicamentos.",
+      "Utilizar calçado fechado e adequado ao serviço.",
+      "Manusear lentes de contato durante procedimentos."
+    ],
+    "correct": 3
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Sobre o uso de vestimentas e EPIs, a conduta correta ao término do plantão é:",
+    "choices": [
+      "Sair do local de trabalho com avental e EPI para ganhar tempo.",
+      "Ir ao refeitório com a mesma vestimenta utilizada durante os procedimentos.",
+      "Levar as vestimentas para lavar em casa obrigatoriamente.",
+      "Não deixar o local de trabalho com EPI e vestimentas utilizadas nas atividades.",
+      "Permanecer com a touca cirúrgica até chegar em casa."
+    ],
+    "correct": 3
+  },
+  {
+    "type": "bio_abcd",
+    "question": "A higienização das vestimentas é responsabilidade do empregador quando se tratar de:",
+    "choices": [
+      "Somente ambulatórios de baixa complexidade.",
+      "Apenas em enfermarias gerais sem contato com material orgânico.",
+      "Centros cirúrgicos/obstétricos, UTI, unidades com doenças infectocontagiosas e quando houver contato direto com material orgânico.",
+      "Somente em períodos de surto.",
+      "Nunca; é sempre do trabalhador."
+    ],
+    "correct": 2
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Após administrar medicação com seringa e agulha no leito, quem deve descartar o perfurocortante no coletor apropriado?",
+    "choices": [
+      "O serviço de limpeza, ao final do plantão.",
+      "O trabalhador que utilizou o material.",
+      "A chefia ao final do turno.",
+      "A CCIH, na rotina diária.",
+      "A farmácia hospitalar."
+    ],
+    "correct": 1
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Quanto ao manuseio de agulhas em ambiente hospitalar, a NR‑32 estabelece que:",
+    "choices": [
+      "O reencape é permitido com técnica de uma mão.",
+      "A desconexão manual é permitida por profissional capacitado.",
+      "São vedados o reencape e a desconexão manual de agulhas.",
+      "O reencape é obrigatório antes do descarte.",
+      "A retirada da agulha da seringa reduz o volume e é recomendada."
+    ],
+    "correct": 2
+  },
+  {
+    "type": "bio_abcd",
+    "question": "O empregador deve elaborar e implementar, obrigatoriamente, em hospitais:",
+    "choices": [
+      "Plano de Gestão de Leitos (PGL).",
+      "Plano de Proteção Radiológica (PPR) em todos os setores.",
+      "Plano de Prevenção de Riscos de Acidentes com Materiais Perfurocortantes.",
+      "Plano de Continuidade de Negócios (PCN).",
+      "Plano de Higienização Hospitalar (PHH) substitui os demais."
+    ],
+    "correct": 2
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Ao sofrer acidente com risco biológico na enfermaria, o trabalhador deve:",
+    "choices": [
+      "Aguardar o final do plantão para registrar a ocorrência.",
+      "Comunicar imediatamente ao responsável pelo local e, quando houver, ao serviço de SST e à CIPA.",
+      "Comunicar apenas se houver afastamento médico.",
+      "Registrar apenas em prontuário do paciente.",
+      "Informar na próxima reunião de equipe."
+    ],
+    "correct": 1
+  },
+  {
+    "type": "bio_abcd",
+    "question": "No hospital, o programa de imunização fornecido gratuitamente aos trabalhadores deve contemplar, no mínimo:",
+    "choices": [
+      "Apenas hepatite B.",
+      "Hepatite B e influenza.",
+      "Tétano, difteria, hepatite B e as demais definidas no PCMSO.",
+      "Apenas vacinas previstas em campanhas públicas.",
+      "Somente para equipe de enfermagem."
+    ],
+    "correct": 2
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Em relação à vacinação ocupacional no hospital, é correto afirmar que o empregador deve:",
+    "choices": [
+      "Exigir a vacinação sem necessidade de informar efeitos colaterais.",
+      "Informar vantagens, possíveis efeitos e riscos da recusa, registrando e guardando documentação quando houver recusa, e registrar as vacinas no prontuário clínico individual do trabalhador.",
+      "Apenas ofertar vacinas e não documentar recusas.",
+      "Registrar vacinas apenas no prontuário do paciente.",
+      "Delegar integralmente a informação ao fabricante."
+    ],
+    "correct": 1
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Na sala de preparo de desinfetantes do hospital, recipientes fracionados devem ser identificados com:",
+    "choices": [
+      "Somente o nome comercial do produto.",
+      "Nome do produto e concentração; demais dados são opcionais.",
+      "Nome do produto, composição, concentração, datas de envase/validade e responsável pelo fracionamento; é vedada a reutilização de embalagens.",
+      "Apenas um código interno sem legenda.",
+      "Rótulo original do fabricante, mesmo após fracionamento."
+    ],
+    "correct": 2
+  },
+  {
+    "type": "bio_abcd",
+    "question": "A manipulação/fracionamento de produtos químicos no hospital deve ocorrer em local apropriado que disponha, no mínimo:",
+    "choices": [
+      "De coifa como sistema preferencial de exaustão.",
+      "De chuveiro e lava‑olhos, acionados e higienizados semanalmente, sinalização clara, exaustão adequada (sem coifa), EPIs e sistema de descarte.",
+      "Apenas de ventilação natural e pia.",
+      "Somente de EPIs e placa de 'cuidado'.",
+      "De qualquer sala livre no posto de enfermagem."
+    ],
+    "correct": 1
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Sobre gases medicinais no hospital, a NR‑32 veda, entre outras condutas:",
+    "choices": [
+      "Utilizar oxigênio para fins diversos dos que se destinam.",
+      "Manter recomendações do fabricante disponíveis no local.",
+      "Treinar a equipe para operação do sistema centralizado.",
+      "Afixar sinalização de perigo no sistema centralizado.",
+      "Armazenar cilindros longe de fontes de calor."
+    ],
+    "correct": 0
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Cilindros com gases inflamáveis (ex.: hidrogênio) devem ser armazenados a, no mínimo, qual distância dos cilindros com gases oxidantes (ex.: oxigênio)?",
+    "choices": [
+      "Dois metros.",
+      "Quatro metros.",
+      "Oito metros, ou separados por barreira vedada resistente ao fogo.",
+      "Não há exigência de distância mínima.",
+      "Basta separá-los por fita de sinalização."
+    ],
+    "correct": 2
+  },
+  {
+    "type": "bio_abcd",
+    "question": "No transporte de cilindros de gases medicinais pelo hospital, a conduta adequada segundo a NR‑32 é:",
+    "choices": [
+      "Transportá-los soltos, em posição horizontal e sem capacete.",
+      "Transportá-los presos, com capacete e em posição segura, evitando quedas.",
+      "Transferir gás de um cilindro para outro para reduzir peso.",
+      "Lubrificar com óleo as conexões do oxigênio para facilitar acoplamento.",
+      "Levar dois cilindros acoplados pelo mesmo regulador."
+    ],
+    "correct": 1
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Em centro cirúrgico, para minimizar a exposição a gases/vapores anestésicos, a NR‑32 determina:",
+    "choices": [
+      "Dispensar manutenção preventiva dos equipamentos.",
+      "Manter registro dos cilindros, conexões e mangueiras apenas quando apresentarem vazamentos.",
+      "Realizar manutenção corretiva e preventiva dos equipamentos e manter sistemas de ventilação e exaustão para controle ambiental.",
+      "Desligar a exaustão para reduzir ruído durante cirurgia.",
+      "Deixar a manutenção a cargo exclusivo do fabricante, sem registro no serviço."
+    ],
+    "correct": 2
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Na farmácia oncológica hospitalar, a NR‑32 exige que a sala de preparo de quimioterápicos seja equipada com:",
+    "choices": [
+      "Cabine de Segurança Biológica Classe I.",
+      "Cabine de Segurança Biológica Classe II B2, com suprimento de ar e posicionamento que evite turbulência.",
+      "Fluxo laminar horizontal, sem necessidade de cabine.",
+      "Apenas EPI, sem cabine.",
+      "Ar-condicionado comum e exaustão natural."
+    ],
+    "correct": 1
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Quanto a acidentes com quimioterápicos (derramamentos) em áreas de preparo/armazenamento/administração, a NR‑32 determina:",
+    "choices": [
+      "Não é necessário kit específico, apenas EPI.",
+      "Basta fechar a área até a limpeza geral do hospital.",
+      "Manter disponível um kit de derramamento identificado contendo, no mínimo, luvas, avental impermeável, compressas absorventes, proteção respiratória/ocular, sabão, recipiente para resíduos e procedimento descrito.",
+      "Acionar apenas a brigada de incêndio.",
+      "Substituir por saco plástico comum e pano."
+    ],
+    "correct": 2
+  }
+]
