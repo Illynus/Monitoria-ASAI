@@ -19,8 +19,14 @@ const rooms = new Map();
 
 const perguntasProcesso = JSON.parse(fs.readFileSync(path.join(__dirname,'public','data','perguntas_processo.json'),'utf8'));
 const perguntasBio = JSON.parse(fs.readFileSync(path.join(__dirname,'public','data','perguntas_bioseguranca.json'),'utf8'));
+const perguntasGastro = JSON.parse(fs.readFileSync(path.join(__dirname,'public','data','perguntas_gastro_endocrino.json'),'utf8'));
 
-function loadQuestions(gameType){ if (gameType==='processo') return JSON.parse(JSON.stringify(perguntasProcesso)); if (gameType==='bioseg') return JSON.parse(JSON.stringify(perguntasBio)); return []; }
+function loadQuestions(gameType){
+  if (gameType==='processo') return JSON.parse(JSON.stringify(perguntasProcesso));
+  if (gameType==='bioseg') return JSON.parse(JSON.stringify(perguntasBio));
+  if (gameType==='gastro') return JSON.parse(JSON.stringify(perguntasGastro));
+  return [];
+}
 
 function makeRoom(gameType, hostId){
   let roomCode = code(); while (rooms.has(roomCode)) roomCode = code();
@@ -44,7 +50,7 @@ function expectedTokensFromAnswer(q){
 io.on('connection', (socket)=>{
   socket.on('createRoom', ({gameType, nick})=>{
     try{
-      if (!['processo','bioseg'].includes(gameType)) return socket.emit('errorMsg','Tipo de jogo inválido.');
+      if (!['processo','bioseg','gastro'].includes(gameType)) return socket.emit('errorMsg','Tipo de jogo inválido.');
       const room = makeRoom(gameType, socket.id);
       socket.join(room.code);
       io.to(socket.id).emit('roomCreated', { room: roomToLobbyDTO(room) });
