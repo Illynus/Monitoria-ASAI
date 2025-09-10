@@ -49,10 +49,12 @@ btnJoin.addEventListener('click', () => {
   const nick = joinNick.value.trim() || 'Jogador';
   const avatar = joinAvatar.value || 'stethoscope.svg';
   if (!roomCode || roomCode.length !== 5) return alert('Código inválido');
-  socket.emit('joinRoom', { roomCode, nick, avatar });
+  socket.emit('joinRoom', { roomCode, nick, avatar, playerId: getPlayerId() });
+  saveLastSession(roomCode, nick, avatar);
 });
 
 socket.on('joined', ({ room, you: me }) => {
+  saveLastSession(room.code, joinNick.value.trim()||'Jogador', joinAvatar.value||'stethoscope.svg');
   you = me;
   show(joinForm, false);
   show(wait, true);

@@ -1,122 +1,122 @@
 [
   {
     "type": "bio_abcd",
-    "question": "Questão 1: Sobre os tipos de diabetes, qual alternativa está correta?",
+    "question": "[PREENCHER] Pergunta 1 — enunciado sobre Gastro/Endócrino.",
     "choices": [
-      "No DM1 há resistência periférica à insulina sem deficiência de secreção.",
-      "No DM2 há destruição autoimune completa das células β.",
-      "No DM1 há deficiência absoluta de insulina por destruição autoimune das células β.",
-      "No DM2 ocorre hipoglicemia espontânea frequente.",
-      "Ambos DM1 e DM2 sempre iniciam na infância."
-    ],
-    "correct": 2
-  },
-  {
-    "type": "bio_abcd",
-    "question": "Questão 2: Qual dos critérios abaixo confirma o diagnóstico de diabetes em um paciente assintomático, quando repetido em outra ocasião?",
-    "choices": [
-      "Glicemia de jejum ≥ 126 mg/dL.",
-      "Glicemia capilar pós-prandial > 140 mg/dL.",
-      "HbA1c = 6,0%.",
-      "Teste oral de tolerância à glicose 2h = 160 mg/dL.",
-      "Glicemia ao acaso = 180 mg/dL sem sintomas."
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
     ],
     "correct": 0
   },
   {
     "type": "bio_abcd",
-    "question": "Questão 3: Qual insulina é classificada como ação prolongada (basal)?",
+    "question": "[PREENCHER] Pergunta 2 — enunciado sobre Gastro/Endócrino.",
     "choices": [
-      "Insulina regular.",
-      "Insulina lispro.",
-      "Insulina NPH.",
-      "Insulina glargina.",
-      "Insulina aspart."
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
     ],
-    "correct": 3
+    "correct": 0
   },
   {
     "type": "bio_abcd",
-    "question": "Questão 4 (via de administração): No manejo ambulatorial de rotina, a via de administração mais comum da insulina é:",
+    "question": "[PREENCHER] Pergunta 3 — enunciado sobre Gastro/Endócrino.",
     "choices": [
-      "Oral.",
-      "Intramuscular.",
-      "Subcutânea.",
-      "Intravenosa contínua.",
-      "Intradérmica."
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
     ],
-    "correct": 2
+    "correct": 0
   },
   {
     "type": "bio_abcd",
-    "question": "Questão 5 (monitoramento): Para o monitoramento diário domiciliar da glicemia na maioria dos pacientes em uso de insulina, o método preferido é:",
+    "question": "[PREENCHER] Pergunta 4 — enunciado sobre Gastro/Endócrino.",
     "choices": [
-      "Dosagem mensal de HbA1c.",
-      "Glicemia capilar com glicosímetro várias vezes ao dia.",
-      "Teste oral de tolerância à glicose semanal.",
-      "Exame de urina para glicose diário.",
-      "Hemoglucoteste apenas quando houver sintomas."
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
     ],
-    "correct": 1
+    "correct": 0
   },
   {
     "type": "bio_abcd",
-    "question": "Questão 6: Em um episódio de hipoglicemia (glicemia < 70 mg/dL) em paciente consciente, a conduta inicial correta é:",
+    "question": "[PREENCHER] Pergunta 5 — enunciado sobre Gastro/Endócrino.",
     "choices": [
-      "Aplicar 10 unidades de insulina regular.",
-      "Administrar 15 g de carboidrato de ação rápida e reavaliar em 15 minutos.",
-      "Oferecer refeição rica em proteínas somente.",
-      "Iniciar soro glicosado EV em todos os casos.",
-      "Aplicar glucagon IM em qualquer hipoglicemia leve."
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
     ],
-    "correct": 1
+    "correct": 0
   },
   {
     "type": "bio_abcd",
-    "question": "Questão 7: Qual achado é mais sugestivo de cetoacidose diabética (CAD)?",
+    "question": "[PREENCHER] Pergunta 6 — enunciado sobre Gastro/Endócrino.",
     "choices": [
-      "Hiperglicemia com osmolaridade muito elevada e sem cetose.",
-      "Hipoglicemia com sudorese fria.",
-      "Hiperglicemia, cetonemia/cetonúria e acidose metabólica.",
-      "Hiperglicemia leve e pH normal.",
-      "Hiponatremia sem alterações ácido-básicas."
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
     ],
-    "correct": 2
+    "correct": 0
   },
   {
     "type": "bio_abcd",
-    "question": "Questão 8: Para rastreamento de nefropatia diabética em pacientes com DM2, o exame recomendado anualmente é:",
+    "question": "[PREENCHER] Pergunta 7 — enunciado sobre Gastro/Endócrino.",
     "choices": [
-      "Creatinina sérica isolada.",
-      "Clearence de inulina.",
-      "Relação albumina/creatinina em amostra de urina.",
-      "Urocultura.",
-      "Proteinúria de 24 horas obrigatória."
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
     ],
-    "correct": 2
+    "correct": 0
   },
   {
     "type": "bio_abcd",
-    "question": "Questão 9: Qual orientação ajuda a prevenir úlceras nos pés em pessoas com diabetes?",
+    "question": "[PREENCHER] Pergunta 8 — enunciado sobre Gastro/Endócrino.",
     "choices": [
-      "Caminhar descalço para “arejar” os pés.",
-      "Usar água muito quente para amolecer calos diariamente.",
-      "Inspecionar os pés diariamente e usar calçados adequados.",
-      "Remover calos com lâmina em casa.",
-      "Usar meias apertadas para compressão constante."
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
     ],
-    "correct": 2
+    "correct": 0
   },
   {
     "type": "bio_abcd",
-    "question": "Para a maioria dos adultos não gestantes, a meta de HbA1c frequentemente recomendada é:",
+    "question": "[PREENCHER] Pergunta 9 — enunciado sobre Gastro/Endócrino.",
     "choices": [
-      "≤ 5,0%.",
-      "≤ 5,5%.",
-      "≤ 6,0%.",
-      "≤ 6,5–7,0%.",
-      "≤ 8,5–9,0%."
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
     ],
-    "correct": 3
+    "correct": 0
+  },
+  {
+    "type": "bio_abcd",
+    "question": "[PREENCHER] Pergunta 10 — enunciado sobre Gastro/Endócrino.",
+    "choices": [
+      "[A] opção A – substituir",
+      "[B] opção B – substituir",
+      "[C] opção C – substituir",
+      "[D] opção D – substituir",
+      "[E] opção E – substituir"
+    ],
+    "correct": 0
   }
 ]
