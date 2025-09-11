@@ -1,92 +1,179 @@
-// public/js/player.js — Reconexão + force join + limpeza de sessão
-(function(){
-  const socket = (window.socket) ? window.socket : io();
+socket.on('connect', ()=>{ const sess = getLastSession(); if(sess.joined && sess.roomCode){ socket.emit('rejoinRoom', { roomCode: sess.roomCode, playerId: getPlayerId() }); } });
+const PID_KEY = 'asai_player_id';
+const LAST_ROOM_KEY = 'asai_last_room';
+const LAST_NICK_KEY = 'asai_last_nick';
+const LAST_AVATAR_KEY = 'asai_last_avatar';
+const JOINED_FLAG = 'asai_joined_flag';
 
-  function showJoinUI() {
-    const joinView = document.getElementById('join-view');
-    const gameView = document.getElementById('game-view');
-    if (joinView) joinView.style.display = 'block';
-    if (gameView) gameView.style.display = 'none';
-  }
-  function enterGameUI() {
-    const joinView = document.getElementById('join-view');
-    const gameView = document.getElementById('game-view');
-    if (joinView) joinView.style.display = 'none';
-    if (gameView) gameView.style.display = 'block';
-  }
-  function showError(code, msg) {
-    console.error('[Erro]', code, msg || '');
-    alert(`Não foi possível entrar: ${code || 'ERRO'}`);
-  }
+function getPlayerId(){ let id = localStorage.getItem(PID_KEY); if(!id){ id = 'p_'+Math.random().toString(36).slice(2)+Date.now().toString(36); localStorage.setItem(PID_KEY, id);} return id; }
+function saveLastSession(roomCode, nick, avatar){ localStorage.setItem(LAST_ROOM_KEY, roomCode||''); localStorage.setItem(LAST_NICK_KEY, nick||''); localStorage.setItem(LAST_AVATAR_KEY, avatar||''); localStorage.setItem(JOINED_FLAG, '1'); }
+function getLastSession(){ return { roomCode: localStorage.getItem(LAST_ROOM_KEY)||'', nick: localStorage.getItem(LAST_NICK_KEY)||'', avatar: localStorage.getItem(LAST_AVATAR_KEY)||'', joined: localStorage.getItem(JOINED_FLAG)==='1' }; }
 
-  function getSession() {
-    try { return JSON.parse(localStorage.getItem('asai.session') || 'null'); } catch(e){ return null; }
-  }
-  function setSession(sess) {
-    try { localStorage.setItem('asai.session', JSON.stringify(sess)); } catch(e){}
-  }
-  function clearSession() {
-    try { localStorage.removeItem('asai.session'); } catch(e){}
-  }
+const socket = io({ transports: ['websocket'], reconnection: true, reconnectionAttempts: Infinity, reconnectionDelay: 500, reconnectionDelayMax: 3000, timeout: 10000 });
+let you = null;
+let stopTimer = null;
+let currentQ = null;
 
-  function getOrCreatePlayerId() {
-    let pid = null;
-    try { pid = localStorage.getItem('asai.playerId'); } catch(e){}
-    if (!pid) {
-      pid = 'p_' + (Date.now().toString(16) + Math.random().toString(16).slice(2,10));
-      try { localStorage.setItem('asai.playerId', pid); } catch(e){}
-    }
-    return pid;
-  }
+const joinForm = $('#joinForm');
+const joinCode = $('#joinCode');
+const joinNick = $('#joinNick');
+const joinAvatar = $('#joinAvatar');
+const btnJoin = $('#btnJoin');
 
-  function attemptAutoRejoin() {
-    const sess = getSession();
-    if (!sess || !sess.roomCode || !sess.playerId) return;
-    socket.emit('rejoin', { roomCode: sess.roomCode, playerId: sess.playerId }, (res) => {
-      if (res && res.ok) {
-        enterGameUI();
-      } else {
-        clearSession();
-        showJoinUI();
-      }
-    });
-  }
+const wait = $('#wait');
+const qCard = $('#qCard');
+const finalCard = $('#final');
 
-  function joinRoom(roomCode, name) {
-    clearSession();
-    const payload = {
-      roomCode: String(roomCode || '').trim(),
-      name: String(name || '').trim() || 'Jogador',
-      playerId: getOrCreatePlayerId(),
-      force: true
+const pQIdx = $('#pQIdx');
+const pQTot = $('#pQTot');
+const pTimer = $('#pTimer');
+const pQArea = $('#pQArea');
+const sendAnswer = $('#sendAnswer');
+
+const AVATARS = [
+  "stethoscope.svg","syringe.svg","heart.svg","mask.svg","gloves.svg",
+  "thermometer.svg","clipboard.svg","bed.svg","ivbag.svg","tray.svg",
+  "nurse_m.svg","nurse_f.svg","microscope.svg","dna.svg","ambulance.svg",
+  "xray.svg","tablet.svg","bio_shield.svg","n95.svg","vaccine.svg"
+];
+function buildAvatarGrid(){
+  const grid = document.getElementById('avatarGrid'); if (!grid) return;
+  const hidden = document.getElementById('joinAvatar');
+  grid.innerHTML = '';
+  AVATARS.forEach((file, idx)=>{
+    const tile = document.createElement('div'); tile.className='avatar-tile' + (idx===0?' selected':'');
+    const img = document.createElement('img'); img.className='avatar-img'; img.src='/assets/avatars/' + file; img.alt=file;
+    tile.appendChild(img);
+    tile.onclick = () => {
+      Array.from(grid.children).forEach(el=>el.classList.remove('selected'));
+      tile.classList.add('selected');
+      hidden.value = file;
     };
-    socket.emit('join', payload, (res) => {
-      if (!res || !res.ok) {
-        return showError(res?.code || 'JOIN_FAILED', res?.msg);
-      }
-      setSession({ roomCode: res.room.code, playerId: res.playerId, role: 'player' });
-      enterGameUI();
+    grid.appendChild(tile);
+  });
+  hidden.value = AVATARS[0];
+}
+document.addEventListener('DOMContentLoaded', buildAvatarGrid);
+
+btnJoin.addEventListener('click', () => {
+  roomCode = fmtCode(joinCode.value);
+  const nick = joinNick.value.trim() || 'Jogador';
+  const avatar = joinAvatar.value || 'stethoscope.svg';
+  if (!roomCode || roomCode.length !== 5) return alert('Código inválido');
+  socket.emit('joinRoom', { roomCode, nick, avatar, playerId: getPlayerId() }); saveLastSession(roomCode, nick, avatar);
+});
+
+socket.on('joined', ({ room, you: me }) => { saveLastSession(room.code, joinNick?.value?.trim()||'Jogador', joinAvatar?.value||'stethoscope.svg');
+  you = me;
+  show(joinForm, false);
+  show(wait, true);
+});
+
+socket.on('newQuestion', ({ idx, total, timeLimitMs, q }) => {
+  currentQ = q;
+  sendAnswer.disabled = true;
+  pQIdx.textContent = idx; pQTot.textContent = total;
+  pQArea.innerHTML = '';
+  show(wait, false); show(qCard, true);
+
+  if (stopTimer) stopTimer();
+  stopTimer = countdown(timeLimitMs, s => { pTimer.textContent = s + 's'; }, () => {});
+
+  if (q.type === 'processo_q1') {
+    const prompt = document.createElement('div'); prompt.className = 'prompt'; prompt.textContent = q.prompt;
+    const build = document.createElement('div'); build.className = 'token-build'; build.id = 'build';
+    const bank = document.createElement('div'); bank.className = 'token-bank';
+    q.tokens.forEach(tok => {
+      const t = document.createElement('span'); t.className = 'token'; t.textContent = tok;
+      t.onclick = () => { if (t.classList.contains('used')) return; t.classList.add('used');
+        const b = document.createElement('span'); b.className = 'token'; b.textContent = tok;
+        b.onclick = () => { b.remove(); t.classList.remove('used'); updateBtn(); };
+        build.appendChild(b); updateBtn(); };
+      bank.appendChild(t);
     });
+    pQArea.appendChild(prompt);
+    const tip = document.createElement('div'); tip.className='small';
+    tip.textContent='Toque nos blocos para montar o diagnóstico. Toque no bloco montado para removê-lo.';
+    pQArea.appendChild(tip); pQArea.appendChild(build); pQArea.appendChild(bank);
+    function updateBtn(){ const text = Array.from(build.querySelectorAll('.token')).map(x=>x.textContent).join(' '); sendAnswer.disabled = text.trim().length < 5; }
+    sendAnswer.onclick = () => { const arr = Array.from(build.querySelectorAll('.token')).map(x=>x.textContent); const text = arr.join(' '); socket.emit('submitAnswer', { roomCode, payload: { text, tokens: arr } }); sendAnswer.disabled = true; };
   }
 
-  socket.on('joined', (data) => {
-    const sess = getSession() || {};
-    const roomCode = (data?.room?.code || sess.roomCode || '').toUpperCase();
-    const playerId = (data?.you?.playerId || sess.playerId || getOrCreatePlayerId());
-    setSession({ roomCode, playerId, role: 'player' });
-  });
+  if (q.type === 'processo_qMulti') {
+    const prompt = document.createElement('div'); prompt.className='prompt';
+    prompt.innerHTML = `${q.prompt} <em>(selecione ${q.selectCount})</em>`;
+    const grid = document.createElement('div'); grid.className='options two-col';
+    const picked = new Set();
+    q.options.forEach((opt,i)=>{
+      const el = document.createElement('div'); el.className='option'; el.textContent=opt; el.dataset.idx=i;
+      el.onclick = () => {
+        if (picked.has(i)) { picked.delete(i); el.classList.remove('selected'); }
+        else if (picked.size < (q.selectCount||3)) { picked.add(i); el.classList.add('selected'); }
+        sendAnswer.disabled = picked.size !== (q.selectCount||3);
+      };
+      grid.appendChild(el);
+    });
+    pQArea.appendChild(prompt); pQArea.appendChild(grid);
+    sendAnswer.onclick = () => { const sel = Array.from(picked.values()); socket.emit('submitAnswer', { roomCode, payload: { selected: sel } }); sendAnswer.disabled = true; };
+  }
 
-  socket.on('roomClosed', () => {
-    clearSession();
-    showJoinUI();
-  });
+  if (q.type === 'bio_abcd') {
+    const prompt = document.createElement('div'); prompt.className='prompt'; prompt.textContent = q.question;
+    const grid = document.createElement('div'); grid.className='options two-col';
+    let choice = null;
+    q.choices.forEach((opt,i)=>{
+      const L = String.fromCharCode(65+i);
+      const el = document.createElement('div'); el.className='option choice-'+L;
+      el.innerHTML = `<strong>${L})</strong> ${opt}`; el.dataset.idx=i;
+      el.onclick = () => { $all('.option').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); choice=i; sendAnswer.disabled=false; };
+      grid.appendChild(el);
+    });
+    pQArea.appendChild(prompt); pQArea.appendChild(grid);
+    sendAnswer.onclick = () => { socket.emit('submitAnswer', { roomCode, payload: { choice } }); sendAnswer.disabled = true; };
+  }
+});
 
-  socket.on('gameOver', () => {
-    clearSession();
-    showJoinUI();
-  });
+socket.on('reveal', ({ correct }) => {
+  if (currentQ?.type === 'bio_abcd' && typeof correct.correct === 'number') {
+    const el = pQArea.querySelector(`.option[data-idx="${correct.correct}"]`); if (el) el.classList.add('correct');
+  }
+  if (currentQ?.type === 'processo_qMulti' && Array.isArray(correct.correct)) {
+    correct.correct.forEach(i=>{ const el = pQArea.querySelector(`.option[data-idx="${i}"]`); if (el) el.classList.add('correct'); });
+  }
+  if (currentQ?.type === 'processo_q1' && correct.answerText) {
+    const div = document.createElement('div'); div.className='answer-banner'; div.innerHTML = `<strong>Resposta correta:</strong> ${correct.answerText}`; pQArea.appendChild(div);
+  }
+});
 
-  socket.on('connect', attemptAutoRejoin);
+socket.on('gameOver', ({ leaderboard }) => {
+  const pos = leaderboard.findIndex(x => x.id === you?.id) + 1;
+  const total = leaderboard.length;
+  $('#finalPos').textContent = pos>0 ? `Você ficou em ${pos}º de ${total}!` : 'Jogo encerrado.';
+  show(qCard, false); show(wait, false); show(finalCard, true);
+});
 
-  window.ASAIPlayer = { joinRoom, attemptAutoRejoin, getOrCreatePlayerId };
-})();
+socket.on('errorMsg', (msg)=> alert(msg));
+
+function ensureConnect(){
+  if (!socket.connected){
+    try{ socket.connect(); }catch(e){}
+    setTimeout(()=>{
+      const sess = getLastSession();
+      if (sess.joined && sess.roomCode){
+        socket.emit('rejoinRoom', { roomCode: sess.roomCode, playerId: getPlayerId() });
+      }
+    }, 400);
+  } else {
+    const sess = getLastSession();
+    if (sess.joined && sess.roomCode){
+      socket.emit('rejoinRoom', { roomCode: sess.roomCode, playerId: getPlayerId() });
+    }
+  }
+}
+document.addEventListener('visibilitychange', ()=>{
+  if (document.visibilityState === 'visible'){ ensureConnect(); }
+});
+window.addEventListener('focus', ()=> ensureConnect());
+window.addEventListener('pageshow', (e)=>{
+  if (e.persisted){ ensureConnect(); }
+});

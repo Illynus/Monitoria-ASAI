@@ -1,9 +1,10 @@
 {
   "name": "monitoria-asai",
   "version": "3.8.0",
-  "description": "Monitoria ASAI – v3.8 (dados atualizados do DOCX; ranking avatar; overlay; pódio; bônus 3min; parser fix; posição final do jogador)",
+  "description": "Monitoria ASAI – v3.8",
   "main": "server.js",
   "scripts": {
+    "prestart": "node --check server.js",
     "start": "node server.js"
   },
   "dependencies": {
