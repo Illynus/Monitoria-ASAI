@@ -439,6 +439,7 @@ input::placeholder{ color:color-mix(in oklab, var(--muted) 80%, white); }
     /* ===========================================================
        LANDING / HOME (Kawaii) – estilos adicionais
        =========================================================== */
+       
     :root{
       --title-font: "Fredoka", system-ui, sans-serif;
       --ui-font: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -480,11 +481,13 @@ input::placeholder{ color:color-mix(in oklab, var(--muted) 80%, white); }
       color: #4b6fff;
     }
     .kawaii-title .line2{
+
+      font-family: "Luckiest Guy", var(--ui-font);
       font-size: clamp(56px, 8vw, 96px);
       color: #fecaca;
       -webkit-text-stroke: 2px #7c2d12;
       text-stroke: 2px #7c2d12;
-      letter-spacing: 1px;
+      letter-spacing: 5px;
     }
 
     .start-btn{
