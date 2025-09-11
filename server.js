@@ -73,8 +73,23 @@ function makeRoom(gameType, hostId){
   rooms.set(roomCode, room); return room;
 }
 function getRoom(c){ return rooms.get((c||'').toUpperCase()); }
-function roomToLobbyDTO(room){ return { code:room.code, gameType:room.gameType, phase:room.phase, playerCount:room.players.size, players:Array.from(room.players.values()).map(p=>({id:p.id,nick:p.nick,avatar:p.avatar,score:p.score,offline:!!p.offline})) }; })) }; }
-function leaderboard(room){ return Array.from(room.players.values()).sort((a,b)=>b.score-a.score).map((p,idx)=>({pos:idx+1,id:p.id,nick:p.nick,avatar:p.avatar,score:p.score})); })); }
+function roomToLobbyDTO(room) {
+  return {
+    code: room.code,
+    gameType: room.gameType,
+    phase: room.phase,
+    playerCount: room.players.size,
+    players: Array.from(room.players.values()).map(p => ({
+      id: p.id,
+      nick: p.nick,
+      avatar: p.avatar,
+      score: p.score,
+      offline: !!p.offline
+    }))
+  };
+}
+function leaderboard(room){
+  return Array.from(room.players.values())    .sort((a, b) => b.score - a.score)    .map((p, idx) => ({      pos: idx + 1,      id: p.id,      nick: p.nick,      avatar: p.avatar,      score: p.score    }));}
 function normalize(s){ return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim().toLowerCase(); }
 function stemToken(tok){ return (tok||'').toLowerCase().replace(/(ado|ada|ido|ida|a|o)$/,''); }
 function expectedTokensFromAnswer(q){
@@ -212,8 +227,7 @@ socket.on('createRoom', ({gameType, nick})=>{
       }, 125000);
     }
     io.to(room.code).emit('lobbyUpdate', roomToLobbyDTO(room));
-  });
-});
+  })
 
 function startQuestion(room){
   const q = room.questions[room.currentIdx];

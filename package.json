@@ -4,6 +4,7 @@
   "description": "Monitoria ASAI – v3.8 (dados atualizados do DOCX; ranking avatar; overlay; pódio; bônus 3min; parser fix; posição final do jogador)",
   "main": "server.js",
   "scripts": {
+    "prestart": "node --check server.js",
     "start": "node server.js"
   },
   "dependencies": {
