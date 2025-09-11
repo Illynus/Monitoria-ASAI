@@ -1,15 +1,4 @@
-socket.on('connect', ()=>{ const sess = getLastSession(); if(sess.joined && sess.roomCode){ socket.emit('rejoinRoom', { roomCode: sess.roomCode, playerId: getPlayerId() }); } });
-const PID_KEY = 'asai_player_id';
-const LAST_ROOM_KEY = 'asai_last_room';
-const LAST_NICK_KEY = 'asai_last_nick';
-const LAST_AVATAR_KEY = 'asai_last_avatar';
-const JOINED_FLAG = 'asai_joined_flag';
-
-function getPlayerId(){ let id = localStorage.getItem(PID_KEY); if(!id){ id = 'p_'+Math.random().toString(36).slice(2)+Date.now().toString(36); localStorage.setItem(PID_KEY, id);} return id; }
-function saveLastSession(roomCode, nick, avatar){ localStorage.setItem(LAST_ROOM_KEY, roomCode||''); localStorage.setItem(LAST_NICK_KEY, nick||''); localStorage.setItem(LAST_AVATAR_KEY, avatar||''); localStorage.setItem(JOINED_FLAG, '1'); }
-function getLastSession(){ return { roomCode: localStorage.getItem(LAST_ROOM_KEY)||'', nick: localStorage.getItem(LAST_NICK_KEY)||'', avatar: localStorage.getItem(LAST_AVATAR_KEY)||'', joined: localStorage.getItem(JOINED_FLAG)==='1' }; }
-
-const socket = io({ transports: ['websocket'], reconnection: true, reconnectionAttempts: Infinity, reconnectionDelay: 500, reconnectionDelayMax: 3000, timeout: 10000 });
+let roomCode = null;
 let you = null;
 let stopTimer = null;
 let currentQ = null;
@@ -60,10 +49,10 @@ btnJoin.addEventListener('click', () => {
   const nick = joinNick.value.trim() || 'Jogador';
   const avatar = joinAvatar.value || 'stethoscope.svg';
   if (!roomCode || roomCode.length !== 5) return alert('Código inválido');
-  socket.emit('joinRoom', { roomCode, nick, avatar, playerId: getPlayerId() }); saveLastSession(roomCode, nick, avatar);
+  socket.emit('joinRoom', { roomCode, nick, avatar });
 });
 
-socket.on('joined', ({ room, you: me }) => { saveLastSession(room.code, joinNick?.value?.trim()||'Jogador', joinAvatar?.value||'stethoscope.svg');
+socket.on('joined', ({ room, you: me }) => {
   you = me;
   show(joinForm, false);
   show(wait, true);
@@ -153,27 +142,3 @@ socket.on('gameOver', ({ leaderboard }) => {
 });
 
 socket.on('errorMsg', (msg)=> alert(msg));
-
-function ensureConnect(){
-  if (!socket.connected){
-    try{ socket.connect(); }catch(e){}
-    setTimeout(()=>{
-      const sess = getLastSession();
-      if (sess.joined && sess.roomCode){
-        socket.emit('rejoinRoom', { roomCode: sess.roomCode, playerId: getPlayerId() });
-      }
-    }, 400);
-  } else {
-    const sess = getLastSession();
-    if (sess.joined && sess.roomCode){
-      socket.emit('rejoinRoom', { roomCode: sess.roomCode, playerId: getPlayerId() });
-    }
-  }
-}
-document.addEventListener('visibilitychange', ()=>{
-  if (document.visibilityState === 'visible'){ ensureConnect(); }
-});
-window.addEventListener('focus', ()=> ensureConnect());
-window.addEventListener('pageshow', (e)=>{
-  if (e.persisted){ ensureConnect(); }
-});
