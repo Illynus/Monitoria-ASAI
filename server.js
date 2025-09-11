@@ -14,7 +14,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 function code(){ const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let o=''; for(let i=0;i<5;i++) o+=c[Math.floor(Math.random()*c.length)]; return o; }
 function now(){ return Date.now(); }
 function shuffleIdx(n){ const a=[...Array(n).keys()]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } 
-
 function timeLeftMs(room){
   if (!room.questionStart || room.phase!=='question') return 0;
   const elapsed = now() - room.questionStart;
@@ -51,7 +50,6 @@ function emitCurrentQuestionTo(socket, room){
   }
   socket.emit('leaderboard', leaderboard(room));
 }
-
 return a; }
 
 const rooms = new Map();
@@ -140,7 +138,6 @@ socket.on('createRoom', ({gameType, nick})=>{
 
     socket.emit('joined',{room:roomToLobbyDTO(room), you:player});
     io.to(room.code).emit('lobbyUpdate', roomToLobbyDTO(room));
-
     if (room.phase==='question' || room.phase==='reveal'){
       emitCurrentQuestionTo(socket, room);
     }

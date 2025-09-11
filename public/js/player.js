@@ -54,7 +54,7 @@ btnJoin.addEventListener('click', () => {
 });
 
 socket.on('joined', ({ room, you: me }) => {
-  saveLastSession(room.code, joinNick.value.trim()||'Jogador', joinAvatar.value||'stethoscope.svg');
+  saveLastSession(room.code, joinNick?.value?.trim()||'Jogador', joinAvatar?.value||'stethoscope.svg');
   you = me;
   show(joinForm, false);
   show(wait, true);
@@ -144,3 +144,22 @@ socket.on('gameOver', ({ leaderboard }) => {
 });
 
 socket.on('errorMsg', (msg)=> alert(msg));
+
+// Rejoin quando o app/aba volta a ficar visível
+document.addEventListener('visibilitychange', ()=>{
+  if (document.visibilityState === 'visible'){
+    const sess = getLastSession();
+    if (sess.joined && sess.roomCode){
+      socket.emit('rejoinRoom', { roomCode: sess.roomCode, playerId: getPlayerId() });
+    }
+  }
+});
+// Rejoin quando a página volta via bfcache (iOS/Safari/Android)
+window.addEventListener('pageshow', (e)=>{
+  if (e.persisted){
+    const sess = getLastSession();
+    if (sess.joined && sess.roomCode){
+      socket.emit('rejoinRoom', { roomCode: sess.roomCode, playerId: getPlayerId() });
+    }
+  }
+});
