@@ -1,22 +1,146 @@
-<!DOCTYPE html><html lang="pt-br"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Monitoria ASAI – Lobby</title>
-<link rel="stylesheet" href="/css/styles.css"/></head>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- ===== META ===== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monitoria ASAI – Início</title>
+  <meta name="description" content="Bem-vindo à Monitoria ASAI. Inicie o jogo como Host ou Jogador." />
 
-<!-- Badge de crédito (canto inferior direito) -->
-<div class="credit-badge">
-  Desenvolvido por:
-  <a href="https://www.linkedin.com/in/miguel-gon%C3%A7alves-30210a296/" target="_blank" rel="noopener">
-    Miguel Barreto
-  </a>
-</div>
+  <!-- ===== FONTE fofinha (opcional) ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- ===== SEU CSS ===== -->
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
 
 <body class="bg">
-<header class="topbar"><div class="brand"><span class="logo">🩺</span><strong>Monitoria ASAI</strong><small>Processo de Enfermagem & Biosegurança</small></div></header>
-<main class="container"><section class="hero"><h1>Bem-vindo à Monitoria ASAI</h1><p>Escolha um modo para começar.</p>
-<div class="tiles">
-  <a class="tile" href="/host.html"><div class="tile-icon">📺</div><h3>Sou HOST (criar sala)</h3><p>Crie uma sala, gere QR Code e conduza o jogo.</p></a>
-  <a class="tile" href="/player.html"><div class="tile-icon">📱</div><h3>Sou JOGADOR</h3><p>Entre com o código ou QR.</p></a>
-</div></section></main></body></html>
+  <main class="landing">
+    <!-- enfeites que sobem (estrelas/corações) -->
+    <div class="sparkles" id="sparkles"></div>
 
+    <div class="kawaii-wrap">
+      <!-- Título fofinho -->
+      <h1 class="kawaii-title">
+        <div class="line1">Bem-vindos à Monitoria</div>
+        <div class="line2">ASAI</div>
+      </h1>
 
+      <!-- Botão START -->
+      <button id="btnStart" class="start-btn" aria-haspopup="dialog" aria-controls="modePicker">
+        ✨ JOGAR
+      </button>
+
+      <div class="subcopy">Clique em <strong>JOGAR</strong> para escolher: <em>Host</em> ou <em>Jogador</em>.</div>
+    </div>
+  </main>
+
+  <!-- ===== Overlay: seleção de modo ===== -->
+  <section id="modePicker" class="mode-overlay" role="dialog" aria-modal="true" aria-labelledby="modeTitle">
+    <div class="mode-modal">
+      <h2 id="modeTitle" class="center" style="margin:2px 0 8px">Como você quer entrar?</h2>
+
+      <div class="mode-grid">
+        <article class="choice" id="chooseHost">
+          <div class="emoji">📺</div>
+          <h3>Sou HOST</h3>
+          <p>Crie uma sala, exiba QR e conduza o jogo.</p>
+        </article>
+
+        <article class="choice" id="choosePlayer">
+          <div class="emoji">📱</div>
+          <h3>Sou JOGADOR</h3>
+          <p>Entre numa sala via código ou QR.</p>
+        </article>
+      </div>
+
+      <div class="mode-actions">
+        <button id="closePicker" class="btn ghost">Fechar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Launch bonitinho (transição) ===== -->
+  <section id="launch" class="launch" aria-hidden="true"></section>
+
+  <!-- ===== Crédito ===== -->
+  <div class="credit-badge">
+    Desenvolvido por:
+    <a href="https://www.linkedin.com/in/miguel-gon%C3%A7alves-30210a296/" target="_blank" rel="noopener">
+      Miguel Barreto
+    </a>
+  </div>
+
+  <script>
+    // ===== Sparkles subindo na background =====
+    (function makeSparkles(){
+      const sp = document.getElementById('sparkles');
+      if(!sp) return;
+      const icons = ["✨","💖","🌟","💊","🌸","💫"];
+      const COUNT = 24;
+      for(let i=0;i<COUNT;i++){
+        const el = document.createElement('i');
+        el.textContent = icons[i % icons.length];
+        el.style.left = Math.random()*100 + '%';
+        el.style.bottom = (-10 + Math.random()*10) + 'vh';
+        el.style.fontSize = (18 + Math.random()*18) + 'px';
+        el.style.animationDelay = (Math.random()*8) + 's';
+        sp.appendChild(el);
+      }
+    })();
+
+    // ===== Modal de modo =====
+    const btnStart = document.getElementById('btnStart');
+    const modePicker = document.getElementById('modePicker');
+    const closePicker = document.getElementById('closePicker');
+    const chooseHost = document.getElementById('chooseHost');
+    const choosePlayer = document.getElementById('choosePlayer');
+
+    btnStart.addEventListener('click', () => {
+      modePicker.classList.add('show');
+      // foco acessível
+      setTimeout(()=> closePicker.focus(), 60);
+    });
+
+    closePicker.addEventListener('click', () => {
+      modePicker.classList.remove('show');
+      btnStart.focus();
+    });
+
+    // ===== Launch fofinho + navegação =====
+    function launchAndGo(url){
+      const launch = document.getElementById('launch');
+      if(!launch) { location.href = url; return; }
+
+      launch.innerHTML = '';
+      launch.classList.add('show');
+
+      // cria corações/estrelas subindo rápidos
+      const icons = ["✨","💖","🌟","💊","🌸","💫"];
+      for(let i=0;i<18;i++){
+        const f = document.createElement('div');
+        f.className = 'float';
+        f.textContent = icons[i % icons.length];
+        f.style.left = (8 + Math.random()*84) + 'vw';
+        f.style.top = (60 + Math.random()*20) + 'vh';
+        f.style.animationDelay = (Math.random()*0.25) + 's';
+        launch.appendChild(f);
+      }
+
+      // pequena espera para “efeito”
+      setTimeout(()=> location.href = url, 650);
+    }
+
+    chooseHost.addEventListener('click', () => {
+      modePicker.classList.remove('show');
+      launchAndGo('/host.html');
+    });
+    choosePlayer.addEventListener('click', () => {
+      modePicker.classList.remove('show');
+      launchAndGo('/player.html');
+    });
+  </script>
+</body>
+</html>
