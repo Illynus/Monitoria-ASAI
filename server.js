@@ -11,14 +11,30 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-function code(){ const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let o=''; for(let i=0;i<5;i++) o+=c[Math.floor(Math.random()*c.length)]; return o; }
+// ===== Utils =====
+function code(){
+  const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let o='';
+  for(let i=0;i<5;i++) o+=c[Math.floor(Math.random()*c.length)];
+  return o;
+}
 function now(){ return Date.now(); }
-function shuffleIdx(n){ const a=[...Array(n).keys()]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } 
+
+function shuffleIdx(n){
+  const a=[...Array(n).keys()];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
 function timeLeftMs(room){
   if (!room.questionStart || room.phase!=='question') return 0;
   const elapsed = now() - room.questionStart;
   return Math.max(0, room.timeLimitMs - elapsed);
 }
+
 function emitCurrentQuestionTo(socket, room){
   const idx0 = room.currentIdx;
   const q = room.questions[idx0];
@@ -50,12 +66,13 @@ function emitCurrentQuestionTo(socket, room){
   }
   socket.emit('leaderboard', leaderboard(room));
 }
-return a; }
 
+// ===== State =====
 const rooms = new Map();
 const sid2pid = new Map();
 const sid2room = new Map();
 
+// ===== Data =====
 const perguntasProcesso = JSON.parse(fs.readFileSync(path.join(__dirname,'public','data','perguntas_processo.json'),'utf8'));
 const perguntasBio = JSON.parse(fs.readFileSync(path.join(__dirname,'public','data','perguntas_bioseguranca.json'),'utf8'));
 const perguntasGastro = JSON.parse(fs.readFileSync(path.join(__dirname,'public','data','perguntas_gastro_endocrino.json'),'utf8'));
@@ -69,10 +86,24 @@ function loadQuestions(gameType){
 
 function makeRoom(gameType, hostId){
   let roomCode = code(); while (rooms.has(roomCode)) roomCode = code();
-  const room = { code:roomCode, hostId, gameType, players:new Map(), createdAt:now(), currentIdx:0, phase:'lobby', questionStart:null, timeLimitMs:180000, questions:loadQuestions(gameType), view:{} };
-  rooms.set(roomCode, room); return room;
+  const room = {
+    code:roomCode,
+    hostId,
+    gameType,
+    players:new Map(),
+    createdAt:now(),
+    currentIdx:0,
+    phase:'lobby',
+    questionStart:null,
+    timeLimitMs:180000,
+    questions:loadQuestions(gameType),
+    view:{}
+  };
+  rooms.set(roomCode, room);
+  return room;
 }
 function getRoom(c){ return rooms.get((c||'').toUpperCase()); }
+
 function roomToLobbyDTO(room) {
   return {
     code: room.code,
@@ -88,8 +119,18 @@ function roomToLobbyDTO(room) {
     }))
   };
 }
+
 function leaderboard(room){
-  return Array.from(room.players.values())    .sort((a, b) => b.score - a.score)    .map((p, idx) => ({      pos: idx + 1,      id: p.id,      nick: p.nick,      avatar: p.avatar,      score: p.score    }));}
+  return Array.from(room.players.values())
+    .sort((a, b) => b.score - a.score)
+    .map((p, idx) => ({
+      pos: idx + 1,
+      id: p.id,
+      nick: p.nick,
+      avatar: p.avatar,
+      score: p.score
+    }));}
+
 function normalize(s){ return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim().toLowerCase(); }
 function stemToken(tok){ return (tok||'').toLowerCase().replace(/(ado|ada|ido|ida|a|o)$/,''); }
 function expectedTokensFromAnswer(q){
@@ -101,8 +142,9 @@ function expectedTokensFromAnswer(q){
   return out;
 }
 
+// ===== Socket.IO =====
 io.on('connection', (socket)=>{
-  
+
   socket.on('rejoinRoom', ({roomCode, playerId})=>{
     roomCode = (roomCode||'').toUpperCase(); const room = getRoom(roomCode);
     if (!room || !playerId) return socket.emit('errorMsg','Reentrada inválida.');
@@ -120,12 +162,13 @@ io.on('connection', (socket)=>{
       socket.emit('gameOver', { leaderboard: leaderboard(room) });
     }
   });
-socket.on('createRoom', ({gameType, nick})=>{
+
+  socket.on('createRoom', ({gameType, nick})=>{
     try{
       if (!['processo','bioseg','gastro'].includes(gameType)) return socket.emit('errorMsg','Tipo de jogo inválido.');
       const room = makeRoom(gameType, socket.id);
       socket.join(room.code);
-      io.to(socket.id).emit('roomCreated', { room: roomToLobbyDTO(room) });
+      socket.emit('roomCreated', { room: roomToLobbyDTO(room) });
       io.to(room.code).emit('lobbyUpdate', roomToLobbyDTO(room));
     }catch(e){ socket.emit('errorMsg','Falha ao criar sala.'); }
   });
@@ -156,8 +199,6 @@ socket.on('createRoom', ({gameType, nick})=>{
     if (room.phase==='question' || room.phase==='reveal'){
       emitCurrentQuestionTo(socket, room);
     }
-  });
-    io.to(room.code).emit('lobbyUpdate', roomToLobbyDTO(room));
   });
 
   socket.on('startGame', ({roomCode})=>{
@@ -204,7 +245,6 @@ socket.on('createRoom', ({gameType, nick})=>{
     io.to(room.code).emit('leaderboard', leaderboard(room));
   });
 
-  
   socket.on('disconnect', ()=>{
     const pid = sid2pid.get(socket.id);
     const code = sid2room.get(socket.id);
@@ -227,8 +267,10 @@ socket.on('createRoom', ({gameType, nick})=>{
       }, 125000);
     }
     io.to(room.code).emit('lobbyUpdate', roomToLobbyDTO(room));
-  })
+  });
+});
 
+// ===== Game flow =====
 function startQuestion(room){
   const q = room.questions[room.currentIdx];
   room.phase='question'; room.questionStart=now();
@@ -241,6 +283,7 @@ function startQuestion(room){
   } else if (q.type==='processo_qMulti'){
     const order = shuffleIdx(q.options.length);
     const optionsShuffled = order.map(i=>q.options[i]);
+    // mapeia índices originais -> posição atual (embaralhada)
     const correctDisplay = q.correct.map(oi => order.indexOf(oi)).filter(i=>i>=0);
     view.optionsOrder = order; view.correctDisplay = correctDisplay;
     dto = { type:q.type, case:q.case, options:optionsShuffled, prompt:q.prompt, selectCount:q.selectCount||3 };
