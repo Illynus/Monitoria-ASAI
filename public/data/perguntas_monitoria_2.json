@@ -1,122 +1,117 @@
 [
   {
     "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 1 — enunciado sobre Gastro/Endócrino.",
+    "question": "Quais os 4 P's da diabetes?",
     "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
+      "Pirose, polidipsia, paresia, pirexia",
+      "Poliúria, polidipsia, polifagia e perda de peso",
+      "Poliúria, polifagia, prurido, pirexia",
+      "Parestesia, perda de função, pirose e pirexia"
+    ],
+    "correct": 1
+  },
+  {
+    "type": "bio_abcd",
+    "question": "A cetoacidose diabética provoca sintomas, exceto:",
+    "choices": [
+      "Confusão mental",
+      "Fadiga",
+      "Náuseas",
+      "Retenção urinária"
+    ],
+    "correct": 3
+  },
+  {
+    "type": "bio_abcd",
+    "question": "Com relação aos cuidados de Enfermagem ao paciente com glicemia elevada está incorreta a afirmativa:",
+    "choices": [
+      "Administração de glicose 25% conforme esquema",
+      "Monitoramento da glicemia e sinais vitais",
+      "Avaliar o nível de consciência",
+      "Orientar sobre os sinais de alerta para que vá a unidade caso surjam"
     ],
     "correct": 0
   },
   {
     "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 2 — enunciado sobre Gastro/Endócrino.",
+    "question": "De acordo com as Diretrizes da Sociedade Brasileira de Diabetes, um dos critérios laboratoriais para o estabelecimento do diagnóstico de pré-diabetes é uma glicemia em jejum entre:",
     "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
+      "90-115 mg/dL.",
+      "98-120 mg/dL.",
+      "100-125 mg/dL",
+      "115-127 mg/dL"
     ],
-    "correct": 0
+    "correct": 2
   },
   {
     "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 3 — enunciado sobre Gastro/Endócrino.",
+    "question": "Um paciente diabético apresenta sinais de hipoglicemia. Assinale a alternativa que indica a conduta inicial adequada para o manejo dessa situação:",
     "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
+      "Suspender a medicação antidiabética.",
+      "Administrar insulina regular imediatamente.",
+      "Encaminhar para exames laboratoriais de glicemia.",
+      "Oferecer 15 g de carboidratos simples, como suco de laranja."
     ],
-    "correct": 0
+    "correct": 3
   },
   {
     "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 4 — enunciado sobre Gastro/Endócrino.",
+    "question": "Na enfermaria de isolamento para paciente com doença infectocontagiosa, a NR‑32 exige que:",
     "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
+      "Haja apenas dispensador de álcool gel na porta de entrada.",
+      "O lavatório para higiene das mãos fique no corredor, fora do quarto.",
+      "O quarto contenha lavatório em seu interior para higiene das mãos",
+      " Sejam fornecidas luvas em quantidade limitada, priorizando economia.",
+      "Se utilize toalha de pano, desde que trocada ao final do plantão."
     ],
-    "correct": 0
+    "correct": 2
   },
   {
     "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 5 — enunciado sobre Gastro/Endócrino.",
+    "question": "Após retirar as luvas de procedimento na beira do leito, o profissional deve:",
     "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
+      "Retornar às atividades, pois as luvas substituem a lavagem das mãos.",
+      "Higienizar as mãos, pois o uso de luvas não substitui a lavagem.",
+      "Higienizar as mãos somente se houver sujidade visível.",
+      "Passar apenas álcool gel no dorso das mãos.",
+      "Trocar de luvas e continuar o cuidado sem higienização."
     ],
-    "correct": 0
+    "correct": 1
   },
   {
     "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 6 — enunciado sobre Gastro/Endócrino.",
+    "question": "No posto de enfermagem de uma unidade de internação, é permitido:",
     "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
+      "Usar adornos (anéis, pulseiras) durante o preparo de medicações.",
+      "Consumir alimentos e bebidas no posto de trabalho.",
+      "Guardar alimentos no refrigerador de medicamentos.",
+      "Utilizar calçado fechado e adequado ao serviço.",
+      "Manusear lentes de contato durante procedimentos."
     ],
-    "correct": 0
+    "correct": 3
   },
   {
     "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 7 — enunciado sobre Gastro/Endócrino.",
+    "question": "Quanto ao manuseio de agulhas em ambiente hospitalar, a NR‑32 estabelece que:",
     "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
+      "O reencape é permitido com técnica de uma mão.",
+      "A desconexão manual é permitida por profissional capacitado.",
+      "São vedados o reencape e a desconexão manual de agulhas.",
+      "O reencape é obrigatório antes do descarte.",
+      "A retirada da agulha da seringa reduz o volume e é recomendada."
     ],
-    "correct": 0
+    "correct": 2
   },
   {
     "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 8 — enunciado sobre Gastro/Endócrino.",
+    "question": "Ao sofrer acidente com risco biológico na enfermaria, o trabalhador deve:",
     "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
+      "Aguardar o final do plantão para registrar a ocorrência.",
+      "Comunicar imediatamente ao responsável pelo local e, quando houver, ao serviço de SST e à CIPA.",
+      "Comunicar apenas se houver afastamento médico.",
+      "Registrar apenas em prontuário do paciente.",
+      "Informar na próxima reunião de equipe."
     ],
-    "correct": 0
-  },
-  {
-    "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 9 — enunciado sobre Gastro/Endócrino.",
-    "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
-    ],
-    "correct": 0
-  },
-  {
-    "type": "bio_abcd",
-    "question": "[PREENCHER] Pergunta 10 — enunciado sobre Gastro/Endócrino.",
-    "choices": [
-      "[A] opção A – substituir",
-      "[B] opção B – substituir",
-      "[C] opção C – substituir",
-      "[D] opção D – substituir",
-      "[E] opção E – substituir"
-    ],
-    "correct": 0
+    "correct": 1
   }
 ]
